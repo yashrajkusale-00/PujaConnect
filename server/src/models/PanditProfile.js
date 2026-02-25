@@ -36,7 +36,21 @@ const PanditProfileSchema = new mongoose.Schema(
       default: "INCOMPLETE"
     },
 
-    rejectionReason: String
+    rejectionReason: String,
+
+    // 🔥 MODULE 3 – DERIVED FIELDS (DO NOT EDIT MANUALLY)
+    ritualCount: {
+      type: Number,
+      default: 0
+    },
+    minPrice: {
+      type: Number,
+      default: null
+    },
+    maxPrice: {
+      type: Number,
+      default: null
+    }
   },
   { timestamps: true }
 );

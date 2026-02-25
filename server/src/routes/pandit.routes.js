@@ -4,9 +4,11 @@ const router = express.Router();
 const PanditProfile = require("../models/PanditProfile");
 const auth = require("../middleware/authMiddleware");
 const ensureNotPending = require("../middleware/ensureNotPending");
+const ensurePanditActive = require("../middleware/ensurePanditActive");
 const validate = require("../middleware/validate");
 const { panditProfileSchema } = require("../validators/panditProfile.schema");
 
+// existing profile routes (UNCHANGED)
 router.post(
   "/profile",
   auth(["pandit"]),
@@ -38,6 +40,14 @@ router.post(
     await profile.save();
     res.json({ message: "Submitted for verification" });
   }
+);
+
+// 🔥 MODULE 3 – RITUAL ROUTES
+router.use(
+  "/rituals",
+  auth(["pandit"]),
+  ensurePanditActive,
+  require("./panditRitual.routes")
 );
 
 module.exports = router;
