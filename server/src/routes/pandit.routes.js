@@ -42,7 +42,7 @@ router.post(
   }
 );
 
-// 🔥 MODULE 3 – RITUAL ROUTES
+// RITUAL ROUTES
 router.use(
   "/rituals",
   auth(["pandit"]),
@@ -50,4 +50,11 @@ router.use(
   require("./panditRitual.routes")
 );
 
+// SLOT
+router.use(
+  "/slots",
+  auth(["pandit"]),
+  ensurePanditActive,
+  require("./panditSlot.routes")
+);
 module.exports = router;

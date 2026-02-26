@@ -14,5 +14,6 @@ app.get("/", (req, res) => {
 app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/pandit", require("./routes/pandit.routes"));
 app.use("/api/admin", require("./routes/admin.routes"));
+app.use("/api/bookings", require("./routes/booking.routes"));
 
 module.exports = app;
