@@ -32,13 +32,13 @@ const PanditProfileSchema = new mongoose.Schema(
 
     status: {
       type: String,
-      enum: ["INCOMPLETE", "PENDING", "ACTIVE", "REJECTED"],
+      enum: ["INCOMPLETE", "PENDING", "ACTIVE", "REJECTED","SUSPENDED"],
       default: "INCOMPLETE"
     },
 
     rejectionReason: String,
 
-    // 🔥 MODULE 3 – DERIVED FIELDS (DO NOT EDIT MANUALLY)
+    // MODULE 3 – DERIVED FIELDS
     ritualCount: {
       type: Number,
       default: 0

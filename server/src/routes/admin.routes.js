@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const Booking = require("../models/Booking");
 
 const PanditProfile = require("../models/PanditProfile");
 const PanditVerificationLog = require("../models/PanditVerificationLog");
@@ -54,6 +55,41 @@ router.post(
     });
 
     res.json({ message: "Pandit rejected" });
+  }
+);
+
+router.get("/bookings", auth(["admin"]), async (req, res) => {
+  const { status } = req.query;
+
+  const filter = {};
+  if (status) {
+    filter.status = status;
+  }
+
+  const bookings = await Booking.find(filter)
+    .populate("userId", "email role")
+    .populate("panditId", "email role")
+    .populate("panditRitualId");
+
+  res.json(bookings);
+});
+
+router.post(
+  "/pandit/:id/disable",
+  auth(["admin"]),
+  async (req, res) => {
+    const pandit = await PanditProfile.findById(req.params.id);
+
+    if (!pandit) {
+      return res.status(404).json({ message: "Pandit not found" });
+    }
+
+    pandit.status = "SUSPENDED";
+    pandit.verified = false;
+
+    await pandit.save();
+
+    res.json({ message: "Pandit disabled" });
   }
 );
 

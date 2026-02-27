@@ -5,7 +5,7 @@ module.exports = async (req, res, next) => {
 
   if (!profile || profile.status !== "ACTIVE") {
     return res.status(403).json({
-      message: "Only verified pandits can perform this action"
+      message: "Only ACTIVE pandits can perform this action"
     });
   }
 
